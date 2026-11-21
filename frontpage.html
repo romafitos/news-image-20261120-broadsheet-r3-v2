@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The World Ledger — Friday 20 November 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1024px; height: 1024px; }
+  body {
+    font-family: "DejaVu Sans", "Liberation Sans", sans-serif;
+    background: #f5f0e6; color: #1a1a1a;
+    width: 1024px; height: 1024px; overflow: hidden;
+  }
+  .page {
+    width: 1024px; height: 1024px; padding: 0 12px;
+    display: grid;
+    grid-template-rows: 56px 16px 48px 18px 46px 172px 118px 124px 124px 118px 132px 32px 20px;
+    gap: 0;
+  }
+  .serif { font-family: "DejaVu Serif", "Liberation Serif", serif; }
+  .mono { font-family: "DejaVu Sans Mono", monospace; }
+  .row { overflow: hidden; position: relative; }
+
+  /* Masthead */
+  .masthead { border-bottom: 3px solid #1a1a1a; display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 2px; }
+  .masthead .side { font-size: 10px; font-weight: bold; letter-spacing: 1px; padding-bottom: 6px; }
+  .masthead h1 { font-family: "DejaVu Serif", "Liberation Serif", serif; font-weight: bold; font-size: 52px; line-height: 1; letter-spacing: 1px; }
+
+  /* Dateline */
+  .dateline { display: flex; align-items: center; justify-content: space-between; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; border-bottom: 1px solid #1a1a1a; }
+  .dateline .red { color: #b03428; }
+
+  /* Date hero */
+  .datehero { display: flex; align-items: center; justify-content: center; }
+  .datehero h2 { font-family: "DejaVu Serif", "Liberation Serif", serif; font-weight: bold; font-size: 44px; line-height: 1; color: #1e3a5f; letter-spacing: 1px; }
+
+  /* Sub-deck */
+  .subdeck { display: flex; align-items: center; justify-content: center; font-family: "DejaVu Serif", serif; font-style: italic; font-size: 13px; color: #333; border-bottom: 2px solid #b03428; white-space: nowrap; overflow: hidden; }
+
+  /* Numbers strip */
+  .strip { display: grid; grid-template-columns: repeat(6, 1fr); border-bottom: 2px solid #1a1a1a; }
+  .strip .cell { border-left: 1px solid #999; padding: 3px 6px 2px; overflow: hidden; }
+  .strip .cell:first-child { border-left: none; }
+  .strip .num { font-family: "DejaVu Serif", serif; font-weight: bold; font-size: 21px; line-height: 1.05; color: #1e3a5f; white-space: nowrap; }
+  .strip .lab { font-size: 8.5px; font-weight: bold; letter-spacing: 0.4px; color: #444; white-space: nowrap; }
+  .strip .chips { display: flex; gap: 3px; margin-top: 1px; }
+  .strip .chip { font-size: 8px; font-weight: bold; color: #fff; padding: 1px 4px; }
+
+  /* Lead */
+  .lead { display: grid; grid-template-columns: 372px 1fr; gap: 10px; border-bottom: 2px solid #1a1a1a; padding: 6px 0; }
+  .lead .art { width: 372px; height: 160px; overflow: hidden; }
+  .lead .txt { overflow: hidden; }
+  .kicker { font-size: 10px; font-weight: bold; color: #b03428; letter-spacing: 0.5px; }
+  .lead h3 { font-family: "DejaVu Serif", serif; font-weight: bold; font-size: 32px; line-height: 1.08; margin: 2px 0 3px; }
+  .lead .deck { font-size: 12.5px; line-height: 1.35; color: #222; }
+
+  /* Secondary */
+  .second { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 2px solid #1a1a1a; padding: 5px 0; }
+  .second .item { display: grid; grid-template-columns: 148px 1fr; gap: 8px; overflow: hidden; }
+  .second .item + .item { border-left: 1px solid #999; padding-left: 10px; }
+  .second .art { width: 148px; height: 108px; overflow: hidden; }
+  .second h4 { font-family: "DejaVu Serif", serif; font-weight: bold; font-size: 17px; line-height: 1.12; margin: 1px 0 2px; }
+  .second .deck { font-size: 10.5px; line-height: 1.3; color: #222; }
+
+  /* Grid tiles */
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; }
+  .grid .tile { border-left: 1px solid #999; padding: 4px 6px 2px; overflow: hidden; }
+  .grid .tile:first-child { border-left: none; }
+  .grid .tile .art { width: 100%; height: 48px; overflow: hidden; margin-bottom: 2px; }
+  .grid .tile .k { font-size: 8.5px; font-weight: bold; color: #b03428; letter-spacing: 0.3px; white-space: nowrap; overflow: hidden; }
+  .grid .tile h5 { font-family: "DejaVu Serif", serif; font-weight: bold; font-size: 14px; line-height: 1.08; margin: 1px 0; max-height: 31px; overflow: hidden; }
+  .grid .tile .d { font-size: 9.5px; line-height: 1.2; color: #222; max-height: 23px; overflow: hidden; }
+  .grid.r2 { background: #efe7d3; border-top: 2px solid #1a1a1a; border-bottom: 2px solid #1a1a1a; }
+  .grid.r1 { border-bottom: 1px solid #999; }
+
+  /* Map */
+  .maprow { border-bottom: 2px solid #1a1a1a; padding: 3px 0 2px; }
+  .maprow .mh { font-size: 10px; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 1px; }
+  .maprow .mh span { color: #b03428; }
+  .maprow svg { display: block; }
+
+  /* Index */
+  .index { padding: 3px 0 2px; }
+  .index .ih { background: #b03428; color: #fff; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; padding: 2px 6px; margin-bottom: 3px; }
+  .index .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; font-size: 8.5px; line-height: 1.2; }
+  .index .cols div { white-space: nowrap; overflow: hidden; }
+  .index .cols b { color: #b03428; }
+
+  /* Date check */
+  .datecheck { border: 1.5px solid #b03428; padding: 2px 6px; font-size: 9px; line-height: 1.25; overflow: hidden; }
+  .datecheck b { color: #b03428; }
+
+  /* Footer */
+  .footer { display: flex; align-items: center; justify-content: center; font-size: 9px; letter-spacing: 0.4px; color: #444; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="row masthead">
+    <div class="side">VOL. II &middot; No. 324</div>
+    <h1>THE WORLD LEDGER</h1>
+    <div class="side">ONE DAY &middot; ONE PAGE</div>
+  </div>
+
+  <div class="row dateline">
+    <span>FRIDAY, 20 NOVEMBER 2026</span>
+    <span class="red">35 STORIES &middot; 7 REGIONS &middot; ALL DATED 20 NOV 2026</span>
+    <span>PRICE $3.00</span>
+  </div>
+
+  <div class="row datehero"><h2>FRIDAY 20 NOVEMBER 2026</h2></div>
+
+  <div class="row subdeck">Kyiv&rsquo;s bridges targeted in a record barrage &middot; Cyclone Akvan comes ashore in Odisha &middot; Asia&rsquo;s markets rout as AI fears spread</div>
+
+  <div class="row strip">
+    <div class="cell"><div class="num">503</div><div class="lab">DRONES FIRED AT UKRAINE</div></div>
+    <div class="cell"><div class="num">209 mm</div><div class="lab">RAIN IN GANJAM, INDIA</div></div>
+    <div class="cell"><div class="num">&minus;5.06%</div><div class="lab">NIKKEI 225</div></div>
+    <div class="cell"><div class="num">100,000</div><div class="lab">YOUTH PLACES A YEAR</div></div>
+    <div class="cell"><div class="num">62&ndash;33</div><div class="lab">SENATE ENERGY VOTE</div></div>
+    <div class="cell"><div class="num">118</div><div class="lab">PHILLIPS, WELLINGTON</div></div>
+  </div>
+
+  <div class="row lead">
+    <div class="art">
+      <svg width="372" height="160" viewBox="0 0 372 160">
+        <rect width="372" height="160" fill="#16283f"/>
+        <circle cx="40" cy="22" r="2" fill="#fff"/><circle cx="90" cy="14" r="1.5" fill="#fff"/><circle cx="150" cy="26" r="2" fill="#fff"/><circle cx="210" cy="12" r="1.5" fill="#fff"/><circle cx="270" cy="24" r="2" fill="#fff"/><circle cx="330" cy="16" r="1.5" fill="#fff"/><circle cx="320" cy="44" r="2" fill="#f5d76e"/><circle cx="60" cy="48" r="1.5" fill="#fff"/>
+        <path d="M16,138 Q70,40 130,96 T230,88 T356,112" fill="none" stroke="#f5d76e" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <path d="M8,150 L8,132 L40,132 L40,120 L64,120 L64,132 L120,132 L120,116 L150,116 L150,132 L240,132 L240,118 L268,118 L268,132 L330,132 L330,124 L362,124 L362,150 Z" fill="#0e1a2b"/>
+        <path d="M8,132 Q186,52 364,132" fill="none" stroke="#d9d9d9" stroke-width="4"/>
+        <path d="M8,132 L8,150 L364,150 L364,132 Q186,52 8,132 Z" fill="#2e2e2e"/>
+        <rect x="8" y="128" width="356" height="4" fill="#d9d9d9"/>
+        <rect x="118" y="62" width="8" height="70" fill="#111"/><rect x="246" y="70" width="8" height="62" fill="#111"/>
+        <path d="M118,80 L126,80 M118,100 L126,100 M246,88 L254,88 M246,108 L254,108" stroke="#d9d9d9" stroke-width="2"/>
+        <rect x="58" y="128" width="10" height="22" fill="#111"/><rect x="176" y="104" width="10" height="46" fill="#111"/><rect x="292" y="120" width="10" height="30" fill="#111"/>
+        <path d="M63,126 Q54,100 63,88 Q72,100 63,126" fill="#f39c12"/><path d="M63,126 Q56,106 63,96 Q70,106 63,126" fill="#e74c3c"/>
+        <path d="M181,102 Q172,74 181,60 Q190,74 181,102" fill="#f39c12"/><path d="M181,102 Q174,80 181,70 Q188,80 181,102" fill="#e74c3c"/>
+        <path d="M297,118 Q288,94 297,82 Q306,94 297,118" fill="#f39c12"/><path d="M297,118 Q290,100 297,90 Q304,100 297,118" fill="#e74c3c"/>
+        <rect x="0" y="138" width="372" height="22" fill="#b03428"/>
+        <rect x="0" y="138" width="372" height="22" fill="#b03428"/>
+        <text x="10" y="153" font-family="DejaVu Sans" font-size="11" font-weight="bold" fill="#fff">DRONES 503 &middot; KH-101 72 &middot; KALIBR 26</text>
+      </svg>
+    </div>
+    <div class="txt">
+      <div class="kicker">1 &middot; CONFLICT &middot; REUTERS</div>
+      <h3>KYIV BRIDGES TARGETED IN RECORD BARRAGE</h3>
+      <div class="deck">Russia fires 26 Kalibr and 72 Kh-101 missiles and 503 drones overnight, hours after Putin shelved truce talks; eight killed in Kyiv. Two missiles and a drone cross into Poland.</div>
+    </div>
+  </div>
+
+  <div class="row second">
+    <div class="item">
+      <div class="art">
+        <svg width="148" height="108" viewBox="0 0 148 108">
+          <rect width="148" height="108" fill="#7fb3d5"/>
+          <path d="M0,108 L0,60 Q40,40 70,58 Q100,74 148,52 L148,108 Z" fill="#d9c48f"/>
+          <path d="M20,40 Q60,10 90,40 Q110,60 80,80 Q50,95 30,70" fill="none" stroke="#fff" stroke-width="3"/>
+          <path d="M40,45 Q60,28 78,45 Q92,60 72,72 Q55,80 45,62" fill="none" stroke="#fff" stroke-width="2.5"/>
+          <circle cx="96" cy="52" r="6" fill="#b03428"/>
+          <text x="6" y="100" font-family="DejaVu Sans" font-size="9" font-weight="bold" fill="#1a1a1a">ODISHA</text>
+          <text x="104" y="100" font-family="DejaVu Sans" font-size="9" font-weight="bold" fill="#1e3a5f">209 MM</text>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">2 &middot; WEATHER &middot; IMD</div>
+        <h4>Cyclone Akvan comes ashore in Odisha</h4>
+        <div class="deck">Landfall near Gopalpur at 70&ndash;80 km/h; 300,000+ moved to shelters. Patrapur records 209 mm of rain. No deaths reported.</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="art">
+        <svg width="148" height="108" viewBox="0 0 148 108">
+          <rect width="148" height="108" fill="#fdecea"/>
+          <line x1="8" y1="20" x2="8" y2="96" stroke="#999" stroke-width="1"/><line x1="8" y1="96" x2="142" y2="96" stroke="#999" stroke-width="1"/>
+          <polyline points="12,28 34,34 56,30 78,52 100,66 122,84 140,92" fill="none" stroke="#b03428" stroke-width="3"/>
+          <circle cx="12" cy="28" r="3" fill="#b03428"/><circle cx="78" cy="52" r="3" fill="#b03428"/><circle cx="140" cy="92" r="3" fill="#b03428"/>
+          <text x="12" y="14" font-family="DejaVu Sans" font-size="10" font-weight="bold" fill="#b03428">&minus;5.06%</text>
+          <text x="8" y="106" font-family="DejaVu Sans" font-size="9" font-weight="bold" fill="#1a1a1a">NIKKEI &minus;5.06%</text>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">3 &middot; ECONOMY &middot; REUTERS</div>
+        <h4>Nikkei plunges as AI fears spread</h4>
+        <div class="deck">Tokyo &minus;5.06%, Seoul &minus;5.21%, Taipei &minus;6.23% in Asia&rsquo;s rout. SoftBank falls 14.48% on its worst day since August 2024.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row grid r1">
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="94" height="48" fill="#1e3a5f"/><path d="M0,0 L94,48 M94,0 L0,48" stroke="#fff" stroke-width="6"/><path d="M47,0 L47,48 M0,24 L94,24" stroke="#fff" stroke-width="10"/><path d="M47,0 L47,48 M0,24 L94,24" stroke="#b03428" stroke-width="4"/>
+        <rect x="94" width="94" height="48" fill="#1e3a5f"/><g fill="#f5d76e"><circle cx="141" cy="8" r="2"/><circle cx="156" cy="12" r="2"/><circle cx="164" cy="24" r="2"/><circle cx="156" cy="36" r="2"/><circle cx="141" cy="40" r="2"/><circle cx="126" cy="36" r="2"/><circle cx="118" cy="24" r="2"/><circle cx="126" cy="12" r="2"/></g>
+      </svg></div>
+      <div class="k">4 &middot; EUROPE &middot; BBC</div>
+      <h5>UK and EU to agree youth deal</h5>
+      <div class="d">Up to 100,000 young people a year may travel, work and study each way.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#cfe8d8"/><circle cx="60" cy="24" r="18" fill="#2e86c1"/><path d="M48,18 Q56,10 66,16 Q72,22 64,28 Q56,32 50,26 Z" fill="#27ae60"/><path d="M56,30 Q64,26 70,32 Q66,40 58,38 Z" fill="#27ae60"/>
+        <rect x="120" y="6" width="10" height="36" rx="5" fill="#e5e5e5" stroke="#888"/><rect x="122" y="26" width="6" height="14" fill="#b03428"/><circle cx="125" cy="12" r="6" fill="#b03428"/>
+      </svg></div>
+      <div class="k">5 &middot; CLIMATE &middot; REUTERS</div>
+      <h5>COP31 talks run into overtime</h5>
+      <div class="d">Antalya draft drops fossil fuels. Text cut from 144 paragraphs to 80.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#f5e6c8"/>
+        <g fill="#1a1a1a"><circle cx="50" cy="12" r="5"/><rect x="46" y="17" width="8" height="18" rx="2"/><rect x="38" y="20" width="24" height="4" rx="2"/></g>
+        <g fill="#1a1a1a"><circle cx="94" cy="12" r="5"/><rect x="90" y="17" width="8" height="18" rx="2"/><rect x="82" y="20" width="24" height="4" rx="2"/></g>
+        <g fill="#1a1a1a"><circle cx="138" cy="12" r="5"/><rect x="134" y="17" width="8" height="18" rx="2"/><rect x="126" y="20" width="24" height="4" rx="2"/></g>
+        <rect x="20" y="38" width="148" height="8" fill="#b03428"/><text x="24" y="45" font-family="DejaVu Sans" font-size="7" font-weight="bold" fill="#fff">SCIOPERO &middot; GENERAL STRIKE</text>
+      </svg></div>
+      <div class="k">6 &middot; EUROPE &middot; REUTERS</div>
+      <h5>Italy stops in general strike</h5>
+      <div class="d">Tens of thousands protest Meloni&rsquo;s policies; rail freight halts for 23 hours.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#2c3e50"/>
+        <g fill="#b03428"><circle cx="30" cy="12" r="3"/><circle cx="48" cy="20" r="3"/><circle cx="66" cy="10" r="3"/><circle cx="84" cy="22" r="3"/><circle cx="102" cy="12" r="3"/><circle cx="120" cy="20" r="3"/></g>
+        <g fill="#f39c12"><circle cx="40" cy="34" r="3"/><circle cx="60" cy="40" r="3"/><circle cx="80" cy="34" r="3"/><circle cx="100" cy="40" r="3"/></g>
+        <text x="128" y="30" font-family="DejaVu Sans" font-size="20" font-weight="bold" fill="#fff">40</text>
+        <text x="128" y="44" font-family="DejaVu Sans" font-size="8" font-weight="bold" fill="#f5d76e">SITES HIT</text>
+      </svg></div>
+      <div class="k">7 &middot; CONFLICT &middot; AL JAZEERA</div>
+      <h5>Israel hits 40 Hezbollah sites</h5>
+      <div class="d">Woman killed, children hurt in renewed strikes; UNIFIL patrol fired on.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#fdf2e9"/><circle cx="34" cy="24" r="14" fill="#b03428"/>
+        <rect x="70" y="30" width="12" height="14" fill="#1e3a5f"/><rect x="88" y="24" width="12" height="20" fill="#1e3a5f"/><rect x="106" y="18" width="12" height="26" fill="#b03428"/><rect x="124" y="12" width="12" height="32" fill="#1e3a5f"/>
+        <text x="146" y="30" font-family="DejaVu Sans" font-size="13" font-weight="bold" fill="#1e3a5f">2.3%</text>
+      </svg></div>
+      <div class="k">8 &middot; ECONOMY &middot; TOKYO</div>
+      <h5>Japan inflation quickens to 2.3%</h5>
+      <div class="d">October CPI rises from 2.1%; a December rate hike stays in play.</div>
+    </div>
+  </div>
+
+  <div class="row grid r2">
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#1e3a5f"/>
+        <text x="10" y="34" font-family="DejaVu Sans" font-size="26" font-weight="bold" fill="#fff">3.00%</text>
+        <text x="118" y="34" font-family="DejaVu Sans" font-size="26" font-weight="bold" fill="#f5d76e">&yen;</text>
+        <text x="150" y="20" font-family="DejaVu Sans" font-size="9" font-weight="bold" fill="#fff">18TH</text>
+        <text x="150" y="34" font-family="DejaVu Sans" font-size="9" font-weight="bold" fill="#fff">MONTH</text>
+      </svg></div>
+      <div class="k">9 &middot; ECONOMY &middot; PBOC</div>
+      <h5>China holds loan rates again</h5>
+      <div class="d">One-year 3.00%, five-year 3.50% &mdash; an 18th straight month unchanged.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#e8d9a8"/>
+        <g fill="#4a6741"><rect x="20" y="22" width="52" height="12" rx="3"/><rect x="34" y="12" width="20" height="10" rx="2"/><rect x="86" y="12" width="34" height="4"/><rect x="104" y="22" width="52" height="12" rx="3"/><rect x="118" y="12" width="20" height="10" rx="2"/></g>
+        <circle cx="30" cy="12" r="4" fill="#1a1a1a"/><circle cx="114" cy="12" r="4" fill="#1a1a1a"/>
+        <text x="60" y="46" font-family="DejaVu Sans" font-size="8" font-weight="bold" fill="#1a1a1a">JURF AL-SAKHAR</text>
+      </svg></div>
+      <div class="k">10 &middot; MIDDLE EAST</div>
+      <h5>Iraq moves on militia stronghold</h5>
+      <div class="d">Forces deploy in Jurf al-Sakhar to limit Kataib Hezbollah.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#eaf0f6"/>
+        <g fill="#1e3a5f"><rect x="30" y="10" width="6" height="28"/><rect x="52" y="10" width="6" height="28"/><rect x="74" y="10" width="6" height="28"/><rect x="96" y="10" width="6" height="28"/><rect x="118" y="10" width="6" height="28"/></g>
+        <rect x="24" y="6" width="106" height="6" fill="#b03428"/><rect x="24" y="38" width="106" height="5" fill="#1e3a5f"/>
+        <text x="140" y="26" font-family="DejaVu Sans" font-size="15" font-weight="bold" fill="#b03428">✕</text>
+      </svg></div>
+      <div class="k">11 &middot; AFRICA &middot; BUSINESSDAY</div>
+      <h5>Court blocks Atiku evidence bid</h5>
+      <div class="d">Judge throws out fresh evidence in the Tinubu eligibility suit.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#dcebf5"/>
+        <rect x="60" y="14" width="60" height="28" rx="3" fill="#1e3a5f"/><rect x="72" y="6" width="36" height="10" rx="2" fill="#b03428"/>
+        <polyline points="72,34 82,26 92,32 104,20" fill="none" stroke="#fff" stroke-width="3"/>
+        <text x="128" y="34" font-family="DejaVu Sans" font-size="12" font-weight="bold" fill="#1e3a5f">3RD</text>
+        <text x="128" y="46" font-family="DejaVu Sans" font-size="9" font-weight="bold" fill="#1e3a5f">TERM</text>
+      </svg></div>
+      <div class="k">12 &middot; AMERICAS &middot; AP</div>
+      <h5>Bukele files for a third term</h5>
+      <div class="d">El Salvador&rsquo;s president registers again for the presidency.</div>
+    </div>
+    <div class="tile">
+      <div class="art"><svg width="188" height="48" viewBox="0 0 188 48">
+        <rect width="188" height="48" fill="#2e7d32"/>
+        <rect x="0" y="20" width="188" height="10" fill="#a1887f"/>
+        <rect x="30" y="8" width="10" height="30" rx="2" fill="#d7ccc8" transform="rotate(24 35 23)"/>
+        <circle cx="120" cy="34" r="8" fill="#b03428"/><circle cx="120" cy="34" r="3" fill="#fff"/>
+        <text x="140" y="32" font-family="DejaVu Sans" font-size="18" font-weight="bold" fill="#fff">118</text>
+      </svg></div>
+      <div class="k">13 &middot; SPORT &middot; AFP</div>
+      <h5>Phillips hits 118 in Wellington</h5>
+      <div class="d">New Zealand 368 as Nicholls makes 175*; India 159-1 at stumps.</div>
+    </div>
+  </div>
+
+  <div class="row maprow">
+    <div class="mh">WHERE IT HAPPENED &mdash; <span>15 PLACES PINNED &middot; 35 STORIES IN ALL &middot; NUMBERS ARE STORY NUMBERS</span></div>
+    <svg width="1000" height="100" viewBox="0 0 1000 100">
+      <rect width="1000" height="100" fill="#d7e5f0"/>
+      <g fill="#d9c48f" stroke="#8a6d3b" stroke-width="1">
+        <polygon points="33,-1 111,-4 167,-4 236,-3 292,2 347,16 333,17 292,25 278,27 264,29 250,35 231,38 208,35 167,25 153,21 153,14 111,6 42,6"/>
+        <polygon points="278,43 333,43 361,50 389,54 403,56 389,64 361,71 333,79 306,87 297,86 306,71 278,64 278,54"/>
+        <polygon points="472,24 500,18 528,17 556,17 583,17 611,18 583,14 556,10 528,7 514,5 500,8 486,14 472,19"/>
+        <polygon points="453,39 472,28 500,25 528,23 556,27 583,28 597,30 611,39 639,43 633,50 611,57 597,64 583,71 556,75 542,71 533,63 528,54 522,47 500,46 478,47 458,43"/>
+        <polygon points="611,18 639,17 667,17 694,14 722,14 750,17 778,17 806,21 833,21 861,19 889,21 917,17 944,14 972,7 1000,3 1000,7 972,10 944,14 917,17 889,25 875,28 861,32 847,36 833,39 819,43 806,44 792,46 778,44 764,39 750,36 736,36 722,43 714,44 708,39 694,36 681,32 667,32 653,32 639,30 625,28 611,25"/>
+        <polygon points="814,65 847,60 875,58 903,60 925,67 917,75 889,77 861,72 833,74 817,71"/>
+        <polygon points="248,36 262,38 278,43 272,48 254,46"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8" font-weight="bold" text-anchor="middle">
+        <g><circle cx="576" cy="13" r="7" fill="#b03428"/><text x="576" y="16" fill="#fff">1</text></g>
+        <g><circle cx="736" cy="36" r="7" fill="#b03428"/><text x="736" y="39" fill="#fff">2</text></g>
+        <g><circle cx="838" cy="32" r="7" fill="#1e3a5f"/><text x="838" y="35" fill="#fff">3</text></g>
+        <g><circle cx="853" cy="23" r="7" fill="#1e3a5f"/><text x="853" y="26" fill="#fff">21</text></g>
+        <g><circle cx="822" cy="22" r="7" fill="#1e3a5f"/><text x="822" y="25" fill="#fff">9</text></g>
+        <g><circle cx="888" cy="24" r="7" fill="#1e3a5f"/><text x="888" y="27" fill="#fff">8</text></g>
+        <g><circle cx="512" cy="13" r="7" fill="#b03428"/><text x="512" y="16" fill="#fff">4</text></g>
+        <g><circle cx="594" cy="26" r="7" fill="#b03428"/><text x="594" y="29" fill="#fff">5</text></g>
+        <g><circle cx="535" cy="20" r="7" fill="#b03428"/><text x="535" y="23" fill="#fff">6</text></g>
+        <g><circle cx="610" cy="30" r="7" fill="#b03428"/><text x="610" y="33" fill="#fff">7</text></g>
+        <g><circle cx="628" cy="28" r="7" fill="#b03428"/><text x="628" y="31" fill="#fff">10</text></g>
+        <g><circle cx="521" cy="44" r="7" fill="#2e7d32"/><text x="521" y="47" fill="#fff">11</text></g>
+        <g><circle cx="252" cy="40" r="7" fill="#6a3d9a"/><text x="252" y="43" fill="#fff">12</text></g>
+        <g><circle cx="986" cy="80" r="7" fill="#00838f"/><text x="986" y="83" fill="#fff">13</text></g>
+        <g><circle cx="558" cy="12" r="7" fill="#b03428"/><text x="558" y="15" fill="#fff">14</text></g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="row index">
+    <div class="ih">ALSO ON FRIDAY 20 NOVEMBER &mdash; 22 MORE STORIES</div>
+    <div class="cols">
+      <div><b>14 LVIV</b> &mdash; Strike on Skniliv station kills 2; 10 to hospital.</div>
+      <div><b>25 KAMPALA</b> &mdash; Ebola curbs in force: rallies halted, 21-day quarantine.</div>
+      <div><b>15 BERLIN</b> &mdash; Gen Z rallies in 73 cities; school strike in 99.</div>
+      <div><b>26 KENYA</b> &mdash; First oil well spudded in Turkana; production from Dec 1.</div>
+      <div><b>16 MOSCOW</b> &mdash; Russia denounces Estonia&rsquo;s border closure.</div>
+      <div><b>27 SENATE</b> &mdash; Energy-permitting bill passes 62&ndash;33.</div>
+      <div><b>17 LONDON</b> &mdash; UK admits offensive cyber ops abroad.</div>
+      <div><b>28 TARIFFS</b> &mdash; New 10&ndash;12.5% levies on 60 countries take effect Friday.</div>
+      <div><b>18 FAIRFORD</b> &mdash; Two men face trial in Nov 2027 over RAF base incident.</div>
+      <div><b>29 TRUMP</b> &mdash; No Iran-war decision until the new year, Trump tells Axios.</div>
+      <div><b>19 MERZ</b> &mdash; Germany: no deal without Europe.</div>
+      <div><b>30 HAITI</b> &mdash; Police say 34 suspected gang members killed.</div>
+      <div><b>20 DENMARK</b> &mdash; Parliament backs Greenland&ndash;US security pact.</div>
+      <div><b>31 LAS VEGAS</b> &mdash; FP3 and qualifying tonight after rain-hit Thursday.</div>
+      <div><b>21 SEOUL</b> &mdash; Ruling party moves to impeach top judge.</div>
+      <div><b>32 CMA</b> &mdash; Ella Langley sweeps country music awards.</div>
+      <div><b>22 PAKISTAN</b> &mdash; Forces kill 22 militants near Afghan frontier.</div>
+      <div><b>33 SYDNEY</b> &mdash; ASX falls 1.58% in worst week since 2022.</div>
+      <div><b>23 TAIWAN</b> &mdash; Taiex falls 6.23%, Asia&rsquo;s steepest drop of the day.</div>
+      <div><b>34 IMF</b> &mdash; Global debt nears 100% of world GDP, Georgieva warns.</div>
+      <div><b>24 GAZA</b> &mdash; Troops cross the ceasefire line for the first time.</div>
+      <div><b>35 YOUTH</b> &mdash; Protests in 25+ countries over costs and militarization.</div>
+    </div>
+  </div>
+
+  <div class="row datecheck"><b>DATE CHECK</b> &mdash; LEFT OUT AS THURSDAY 19 NOV NEWS: Myanmar ruling &middot; Shenzhen declaration &middot; Anthropic debut &middot; Hormuz fire &middot; Houthi Riyadh strike. <b>NOT YET:</b> final COP31 text &middot; Las Vegas race (Sat) &middot; BepiColombo orbit.</div>
+
+  <div class="row footer">EVERY STORY HERE HAPPENED, OR WAS FIRST REPORTED, ON FRIDAY 20 NOVEMBER 2026 &middot; THE WORLD LEDGER &middot; PAGE 1</div>
+
+</div>
+</body>
+</html>
